@@ -1,0 +1,40 @@
+{
+  "command":"/home/ops/verdi/ops/qquery/utilities/submit_sling.sh",
+  "imported_worker_files":{"/home/ops/.netrc":"/home/ops/.netrc"},
+  "recommended-queues": [ "factotum-job_worker-small" ],
+  "disk_usage":"10GB",
+  "params" : [
+  {
+  "name": "localize_url",
+  "destination": "localize"
+  },
+  {
+  "name": "filename",
+  "destination": "positional"
+  },
+  {
+  "name": "download_url",
+  "destination": "positional"
+  },
+  {
+  "name": "queue",
+  "destination": "positional"
+  },
+  {
+  "name": "job_version",
+  "destination": "positional"
+  },
+  {
+  "name": "priority",
+  "destination": "positional"
+  },
+  {
+  "name": "dedup",
+  "destination": "positional"
+  },
+  {
+  "name": "tag",
+  "destination": "positional"
+  }
+  ]
+}

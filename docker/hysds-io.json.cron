@@ -1,0 +1,11 @@
+{
+    "label" : "Qquery Cron",
+    "allowed_accounts": [ "ops" ],
+    "submission_type":"individual",
+    "params" : [
+    {
+      "name": "endpoint",
+      "from": "submitter"
+    }
+  ]
+}

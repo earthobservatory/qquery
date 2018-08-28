@@ -1,0 +1,11 @@
+{
+  "command":"/home/ops/verdi/ops/qquery/qquery/cron.py",
+  "disk_usage":"10GB",
+  "recommended-queues": [ "factotum-job_worker-small" ],
+  "params" : [
+  {
+  "name": "endpoint",
+  "destination": "positional"
+  }
+  ]
+}

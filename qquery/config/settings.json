@@ -1,0 +1,6 @@
+{
+  "aoi_index": "grq_*_area_of_interest",
+  "dedup_redis_key":"granules-s1a_slc",
+  "window-size-days":1,
+  "repository-base":"https://aria-alt-dav.jpl.nasa.gov/incoming"
+}

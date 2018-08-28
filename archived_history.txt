@@ -1,0 +1,1092 @@
+commit eff723c636efb509b4453a07167e9fcafbe709ee
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Jun 12 15:02:40 2018 -0700
+
+    adding soft timeout of 60 min
+
+commit ced93808cca529c08be046ac68de32a29a2cff3b
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Jan 4 20:33:32 2018 +0000
+
+    update docker param for sling_version on qquery submission
+
+commit ceebf6a36f11bc3c69ad9f28ab2fa21c129ae4ca
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Jan 4 12:30:53 2018 -0800
+
+    update 'region' param to 'aoi' for docker parameters in qquery job submissions
+
+commit 2042d1593a25b1daabf86955eb69a5ded50790b9
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Dec 6 15:38:34 2017 +0000
+
+    disable this implementation until BOS SARCAT acquisition metadata is settled
+
+commit 129158bdea81a2942494d2ae5e7622bea45ab5ec
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Sep 28 10:09:26 2017 -0700
+
+    reverse docker spec change
+
+commit 992403ec7f10c42926c75e077756d19295b60957
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Sep 28 10:04:20 2017 -0700
+
+    fix shell param inputs
+
+commit a14e2f0d5e2c58a8d628cc1bd086e88867a08503
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Sep 28 09:51:29 2017 -0700
+
+    correct shell wrapper cmd
+
+commit 9f1360b77fd5f53342cc9edf5800319e9359a57e
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Sep 28 09:24:37 2017 -0700
+
+    add iterative docker wiring to facet aois for qquery, and include shell wrapper
+
+commit c54bca1bc5829f8e535c0f862bbf99f9b1bfcdff
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Sat Sep 23 04:24:17 2017 +0000
+
+    pass object datasets through to localize
+
+commit 7341ccb844f10086e40990df49e846ab95b9701a
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Sat Sep 23 03:32:00 2017 +0000
+
+    localize source_urls.0
+
+commit dc864e2645c50eedb21dc8fe2946ff9ed6d3aa55
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Sat Sep 23 03:12:45 2017 +0000
+
+    update to jobspec for localize
+
+commit c71f4b93ae39756f5c36e5f173805f420340c786
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Sat Sep 23 03:11:45 2017 +0000
+
+    add localize acquisitions
+
+commit fdddb108aac4dffa3b579ab10c6f653ba995e350
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Sat Sep 23 02:45:17 2017 +0000
+
+    updating sling_acquisition spec to be valid
+
+commit 6d515d766ea28f74ec7b17eadf5cbfc8e0a78819
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Sep 22 19:37:37 2017 -0700
+
+    adding on-demand sling submission from acquisitions
+
+commit 7b5aa505d93c18b274497ea04fe1f32db7c4f622
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Mon Jun 19 17:33:36 2017 +0000
+
+    add tag to qquery job-spec
+
+commit 14873dbb7eb06824afeee673b6146ef871e94a9f
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Mon Jun 19 17:30:20 2017 +0000
+
+    add tag param to qquery hysds-io
+
+commit 71d36e96a75708343c518c8a8025d0c4e8d0d244
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Mon Jun 19 17:22:30 2017 +0000
+
+    handle calling from command line
+
+commit 64eb93e1a16d3c2841c8f59860b4c40ff479684f
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Mon Jun 19 17:03:35 2017 +0000
+
+    decouple qquery and sling job spec versioning
+
+commit 3a391f52315f0afd373c1b12ed392fe3da5b7681
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Jun 8 12:43:21 2017 -0700
+
+    add aoi to sling job name
+
+commit 8afedec1bad20fb46d15ea0c625c7f28248d9b15
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu May 25 21:57:08 2017 -0700
+
+    update priority inheritance to qquery
+
+commit 292fd7949a077f722e635359f354abd8b5baa3b8
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Thu May 25 14:12:19 2017 +0000
+
+    disable hysds job dedup for qquery jobs
+
+commit b25de4b6c0933a0fdc97052b86828f5f7c32341f
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon May 1 16:33:57 2017 +0000
+
+    specify correct kwarg param
+
+commit 4f09685b0c312dc87605c08338b8b98b36f9285f
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon May 1 16:28:20 2017 +0000
+
+    sync method API
+
+commit 48e054a81224f1125eaa61800be44ce87502874e
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon May 1 16:19:37 2017 +0000
+
+    fix indent error
+
+commit 2eec23a6c80d15e9549adef49ccf02583001fc79
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon May 1 16:07:34 2017 +0000
+
+    add jittering endpoint querying
+
+commit 7923897638224ee9e114184c301d08f751a21779
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Mon Mar 27 18:57:32 2017 +0000
+
+    allow specification of PGE tag from command line
+
+commit 55c8792f608521f186e33d3094d27b41d40f5597
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Mar 23 16:33:31 2017 -0700
+
+    update to default to last_query_time and not window_size for redis
+
+commit 7261fb231a8d93db1ae9df0942cf351906123e26
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Mar 23 13:16:06 2017 -0700
+
+    remove prepend 'job-' from job name
+
+commit 8503da25f76ca9bff2256081a94e53e6259fbe99
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Mar 22 11:32:55 2017 -0700
+
+    update qquery hysds-io to individual
+
+commit 3e11ac12409cc6867e69cea3f297a6c9129c18db
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Mar 21 12:52:23 2017 -0700
+
+    syntax for required queues
+
+commit 36adf20f50b8881e0035bd9e24566daf41157605
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Mar 21 12:51:40 2017 -0700
+
+    add required queues
+
+commit e628806777b1cfd3458639ce7a0df5b0e88564f0
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Mar 21 11:12:32 2017 -0700
+
+    fix to commas
+
+commit 50da1541aa39143823ed41daa1d35c7dae35d399
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Mar 21 11:12:07 2017 -0700
+
+    removing placeholder and enumerables
+
+commit 6bbd4b3449c1307ccdd3e40f06ddefe7b4a356fc
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Mar 21 11:11:38 2017 -0700
+
+    removing placeholder and enumerables, waiting for fix later
+
+commit 30f21bb9fc40a134ffa5a00235b26b9421237ece
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Mar 15 22:49:44 2017 -0700
+
+    clarify qtype as endpoint and add placeholder text
+
+commit bf56cf394cf94daf2fd8bbaeac55e19fb4d0d094
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Mar 15 20:46:34 2017 +0000
+
+    very important functionality update
+
+commit 9744e1e4019972d812cef9dfbf2ea541efefe12a
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Mar 14 13:28:39 2017 -0700
+
+    fix job spec line
+
+commit ea52b057c935af6975956aa5eef181bb4312611d
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Mar 14 11:15:04 2017 -0700
+
+    correct job_name submission and remove pge-latest tag
+
+commit 06315fc3a7d85e130db80a34bc31ef27cdbc49c3
+Merge: 4e0c721 53a8384
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Tue Mar 14 15:16:52 2017 +0000
+
+    Merge branch 'v2-grfn-ops' into merge-v2
+    
+    Conflicts:
+            qquery/query.py
+
+commit 4e0c721b54a55b9cb2d531aecd9c78d0ea29f445
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Mar 10 10:16:53 2017 -0800
+
+    update job_name
+
+commit 62d06a9cab16ee3967c819ed5eaa31864571edd2
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Mar 10 09:59:12 2017 -0800
+
+    submit kwargs as string
+
+commit f492bf909ab210f0ff62c5a461b082714c4c343c
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Mar 10 09:44:40 2017 -0800
+
+    forgot to commit datetime lib
+
+commit c858827a8092322b6edfde2a1632fc935e81a299
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Mar 10 09:32:53 2017 -0800
+
+    passing job_name through kwargs
+
+commit 2c80885e201c93c46e2f773968a28fe2cf124468
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Mar 9 12:45:34 2017 -0800
+
+    mozart job submission includes job_name
+
+commit 0c943a4981b45b6f06b65b7a7597ad38c38e7a3f
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Mar 9 09:34:44 2017 -0800
+
+    add job name for sling jobs
+
+commit d96fe7e0e28eab4ee284a691d6574779c4089a6a
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Mar 9 00:46:19 2017 -0800
+
+    add queue selection
+
+commit 366fb609bfd9a71dfec0672dfeca82f152b9bf72
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Mar 8 16:25:05 2017 -0800
+
+    update git tag
+
+commit 3263d5e3f55dfa8db25d80ebe91a301cd546c316
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Mar 8 16:17:50 2017 -0800
+
+    update oauth
+
+commit eeeaf2ca9e381c0f35355839f6eaa3353f3d198d
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Mar 8 16:17:04 2017 -0800
+
+    adding git oauth tokens
+
+commit 7caed6ddbf5e009fe57b5a5d1c7c6a9339746fa9
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Mar 8 09:29:49 2017 -0800
+
+    update job spec
+
+commit 218d00810453db27fb95761bbd29c3a68eccd346
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Mar 8 08:52:05 2017 -0800
+
+    user same job spec for sling as qquery
+
+commit 53a83842dde8fb712d99f8e3e5f9d75a13b0baad
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Mar 1 21:19:30 2017 +0000
+
+    use latest tag
+
+commit 12a71de1ea9482f5c515d6ddf0e9b794f9b0f45a
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Feb 28 11:15:41 2017 -0800
+
+    support change from hysds_commons submit_mozart_job
+
+commit fe0fd1655d01b62c11d18d2ae763d6bc2089fb3b
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Feb 28 11:14:45 2017 -0800
+
+    support change from hysds_commons submit_mozart_job
+
+commit e31aa96b6185fb541c28f714286bb4da3b5b6e91
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Feb 23 16:00:42 2017 -0800
+
+    fix query end time for relative inputs
+
+commit ee6c653479cfeca9152740db2524aed047462a16
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Feb 23 14:43:03 2017 -0800
+
+    show params for query
+
+commit 5a0d64d0659513986562ed1e557e2a09702b344d
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Feb 23 10:43:27 2017 -0800
+
+    update to job-spec for v2
+
+commit 9d09cf93dd58b9d4050fa7a71eaafdaceea390b1
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 15:45:28 2017 -0800
+
+    update to pull qquery spec from input to cron
+
+commit 60746619ab57c9cf228aacbcd4abe589287186b4
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 14:56:03 2017 -0800
+
+    pull job_spec from context.json
+
+commit a57fdba1700f28b60495502e6a525bf3f3b4e65c
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 09:32:07 2017 -0800
+
+    adding query print statements
+
+commit a8cdf498cf4818d18bb0b5f71c3efbc338706846
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 09:01:08 2017 -0800
+
+    update print and cron to query input endpoints
+
+commit 3758c6bb5ab7a8ee705339c6704afd92c9402376
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 07:52:53 2017 -0800
+
+    submit query jobs to master branch
+
+commit 48c903346af8b585cc4f24c66452729de9b17a4f
+Merge: 17994d2 d78aa6c
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 07:44:12 2017 -0800
+
+    Merge branch 'jlinick-aoi-v2'
+
+commit d78aa6c10f813f0520133237a211318675d80f90
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 07:26:21 2017 -0800
+
+    save query time
+
+commit 227717eca22bfa0c9a850224784510711863133f
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 07:00:28 2017 -0800
+
+    propagate tags to sling job metadata submission
+
+commit a3372f4318afc02294f24220d352c8ac13a3b9df
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 06:33:16 2017 -0800
+
+    update product and tag labels per #433
+
+commit 745a26f9542ed49c742bc80a08a59ce3462d0e33
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 06:07:37 2017 -0800
+
+    update syntax from code cleanup
+
+commit df3b452b830caf7baff3382f864348e3bc1b24bb
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 05:51:46 2017 -0800
+
+    update syntax from code cleanup
+
+commit 1bae32beab1f3c8b8aae85a4d5169dd9053d37b4
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 05:41:22 2017 -0800
+
+    add query type for endpoints
+
+commit 8db70853ad3b2308ba5e55cf08a41ed379bbc50d
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 05:29:47 2017 -0800
+
+    update v2 params
+
+commit f61a77fbccb0fa7aac69a2de0073f7ba22405d6d
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 05:14:30 2017 -0800
+
+    update params for v2
+
+commit ee28076f9fa72a00860c52a5f45535b2ac8f49ee
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 22 04:57:12 2017 -0800
+
+    update job-spec for disk_usage
+
+commit 9e0c464332a9126e0ef621a6606f9e1f86280df8
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 15 16:05:48 2017 -0800
+
+    updating v2 param/parsing & adding tags
+
+commit ff40b7dd8f2b503e12cf24958f271a37dba1e3ab
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 15 08:27:18 2017 -0800
+
+    syntax/param arg addition
+
+commit 543a05246e129780b5f7a6222e0fbe650c11e5c0
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 15 07:44:30 2017 -0800
+
+    merging v2 params
+
+commit 16e3edb384d1396e33d297c90519983c20dbd83a
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Sun Feb 12 23:36:05 2017 -0800
+
+    aoi query time/event parameter parsing
+
+commit 17994d2d940d506bd3a1d30ffcfb5373a26ad7ad
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Fri Feb 10 15:44:08 2017 +0000
+
+    set correct job-spec parameter for disk_usage
+
+commit 91ae9cf765de452d67226b3e2137091bef39f1e4
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Feb 9 21:24:42 2017 +0000
+
+    no required qtype input for cron (takes from aoi)
+
+commit 3f7bea7d48eba15e6320797e81d9e4bdae461b00
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Feb 9 21:16:12 2017 +0000
+
+    skip aois without types_map
+
+commit ea4bfbe11f068137eb29740659f7cddd92266bd4
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Feb 9 13:03:13 2017 -0800
+
+    clear v1 settings
+
+commit f999702dbd3a45fb49d2cfe612ff7d4c0742199f
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Feb 9 11:38:12 2017 -0800
+
+    job submission indent
+
+commit 831921425abab4f028691e6da445944c1f1d14c8
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Feb 9 19:05:28 2017 +0000
+
+    set cron to kickoff qquery from aoi types_map & pass mappings to repo query
+
+commit c04027a65875dd785122f2e459d3afba08ebdac7
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Feb 8 09:32:41 2017 -0800
+
+    sling job queue based on qtype, check redis dedup
+
+commit 9828c107bcb46e51f7c9558a933510bded4eec5e
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Feb 7 17:37:16 2017 -0800
+
+    import netrc
+
+commit f85b03daca65ce154f76e0c669d93c0148b74731
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Feb 7 14:37:34 2017 -0800
+
+    roll back netrc mappings
+
+commit d16981415f959fb2f5f9b4be37684bb497a4311a
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Feb 7 14:30:00 2017 -0800
+
+    adding netrc to container mappings
+
+commit fb6666198b5e00b197126f4b4c2ee8c4e5560f09
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Tue Feb 7 21:06:18 2017 +0000
+
+    no longer passing creds on command line to qquery, relying on netrc
+
+commit f4e7b7d0d9d4c4b3c371b163c3558694e1fd2662
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Feb 6 16:24:14 2017 -0800
+
+    fix url format
+
+commit 37b1114197c6d62f2a8bc81945e2969a30111c4c
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Feb 6 14:04:37 2017 -0800
+
+    jlinick: fixing spec params to where they should be.
+
+commit eae6a14153c49cb445198f53ea676b080d8bc31a
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Feb 6 13:48:57 2017 -0800
+
+    jinick: update params
+
+commit ab354ce31269d973c2dd21af883fb3feb93ac13b
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Feb 6 13:26:43 2017 -0800
+
+    jlinick: update prod_met to pass to context.json
+
+commit c181d675fb6baeab0ff6a8b87bd1858b897a0b4f
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Feb 6 13:24:03 2017 -0800
+
+    unescape prod met
+
+commit 3ac620ffe02b20b3aba7cbc3b773e3895e0e1506
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Feb 6 13:15:37 2017 -0800
+
+    jlinick: escaping prod-met quotes
+
+commit 7f3bb1ecba322b2a8d8b0a3192be6a556f838644
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Feb 6 13:10:12 2017 -0800
+
+    jlinick: removing quotes on params
+
+commit dccf8169ee1c6872b7a0735fb34e44b772fb3255
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Feb 6 12:49:50 2017 -0800
+
+    jlinick: adjust file type format
+
+commit 3e2f53e76aec00a5693bea923469a51336add39f
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Sun Feb 5 21:32:56 2017 -0800
+
+    correct window size to appropriate value
+
+commit d0f22bcafa6d650dee9d13f2f5e4a024d6c53433
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Feb 2 23:32:18 2017 +0000
+
+    jlinick: kickoff jobs via ./submit_cron.py <repo>
+
+commit 51db843eba00867b7211f2b9859aaa76c95a04a6
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Jan 31 13:07:26 2017 -0800
+
+    v2 sling command line args options fix
+
+commit 208d325cf8f7afd63fcbe43e0bfc1473dcb3efad
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Jan 31 12:36:37 2017 -0800
+
+    set proper url & param formatting
+
+commit 8887b72b83ce8a61b093b30515a5c676ae80abcf
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Tue Jan 31 17:23:27 2017 +0000
+
+    added apihub docker links
+
+commit cf4309645f780e22f01f78bac26ddc6e2b1372da
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Jan 30 12:01:53 2017 -0800
+
+    fixed sling options parameter
+
+commit f7cd440c80ba7f046b84f5f803f0f0f28ecd7f36
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Jan 30 10:55:11 2017 -0800
+
+    set job sling type
+
+commit 2a0b4b4f01df12c232ebb1de3cc689a27b0854c0
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Sat Jan 28 19:15:09 2017 -0800
+
+    encode handler for malformed url links from scihub
+
+commit 9fdd1b5d70fad739b1bc740855dcc91bfa91f037
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Sat Jan 28 17:06:41 2017 -0800
+
+    comment for v1 job submission
+
+commit 9c3703f452ddde42d21e0281ae7f8fe664a7274f
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Sat Jan 28 16:46:18 2017 -0800
+
+    fixed file_type submission v2 option
+
+commit 05f0e4ba509eeceb3ee3d43c62e6732945092fa9
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Jan 27 16:43:42 2017 -0800
+
+    create job type and oauth strings before creation of job submission metadata
+
+commit 162d8e4f3d29c654c4c25fd28f8cbfdc794acc49
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Jan 27 16:21:38 2017 -0800
+
+    add v2 submit import
+
+commit 1d0c17ea18c389e7ee29d1f95e265b5e7291cf49
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Jan 27 15:36:44 2017 -0800
+
+    hardcoding scihub query
+
+commit 8e6b9b5cb2ace4fe3f2607a7c6c4e7a782227f97
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Jan 27 15:08:45 2017 -0800
+
+    increasing lookback window for testing purposes
+
+commit 1c9b90cac797ede6befa5fddca5a02d1d33a04a2
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Jan 27 14:07:41 2017 -0800
+
+    fixed params syntax
+
+commit e36816cb0db0500ad145fcdc0a7b538b6ceb5447
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Jan 27 13:51:09 2017 -0800
+
+    fix payload bracket
+
+commit 1fd10245672d1eb76bb1f052adb06b73061721dd
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Fri Jan 27 13:10:22 2017 -0800
+
+    updated sling params for v2 job submissions
+
+commit 3a5814ce3f748f36926648393666eb1f667f9dd6
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Thu Jan 26 18:46:27 2017 +0000
+
+    use long options without spaces
+
+commit 2aeae63d6c488119bc9d55aa78154e6f3057fead
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Thu Jan 26 16:24:39 2017 +0000
+
+    use hysds_commons util function to resolve redis IP
+
+commit 5f04ca2f7c87e52350dc1bbf84579406a7cf8c3d
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 21:41:31 2017 +0000
+
+    install packages with "pip install -e ."
+
+commit 6f6fa2cb7e9cd9dd91de235faad484177fa18ba8
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 21:27:53 2017 +0000
+
+    programatically determine redis endpoint
+
+commit 499603092a8b7cd612cc0ad95b9961a88bb61938
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 20:10:38 2017 +0000
+
+    pass in args using options
+
+commit 967c20a80ad102e8a2fb1f8c7f6200c3731ee921
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 19:43:10 2017 +0000
+
+    source verdi virtualenv
+
+commit 12ef7bb422eac642eb48f7025e90ef8105d910da
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 19:39:22 2017 +0000
+
+    added dockerignore
+
+commit eab268cab4ecbee4440be467d689cb27b2ffbe4c
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 19:38:03 2017 +0000
+
+    fix setup/added dockerignore
+
+commit 41a7281fedcd2789b76b05715ff22861ebe9e576
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 19:33:32 2017 +0000
+
+    updating dockerfile/container for packages
+
+commit 8e0c1dcc7a98bb230fe4e346b739b34683ef1141
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 18:24:25 2017 +0000
+
+    fixed aoi settings config
+
+commit b2625e3b7717905c1e2744762c95cb78c6e801a5
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 18:06:06 2017 +0000
+
+    fix to dockerfile
+
+commit 33c0e95401b074aa374c604561c07129b3996993
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 18:00:40 2017 +0000
+
+    update dockerfile
+
+commit 1ff21599393f168945c00b27646e51a48f80f2d0
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 25 14:55:59 2017 +0000
+
+    edited Dockerfile for aws config
+
+commit e4e6a1357a955ee8852a250165d5da9b4a790357
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Wed Jan 25 13:18:34 2017 +0000
+
+    skip localize repo in setup.sh
+
+commit 0fce2e103e26bb80bb22338a118856c9f2667f24
+Author: jlinick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Jan 19 16:20:32 2017 +0000
+
+    jlinick: update u&p for submit
+
+commit a22b940c95e6225053ab4c156a8c3cf7242c5b58
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Wed Jan 18 23:17:41 2017 +0000
+
+    jlinick: fixing aria repo landings for hysds.org/general#274
+
+commit 756513cde83a965681b71fd3de2948453b9b6a68
+Merge: def3770 7fe1c77
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 18 22:50:08 2017 +0000
+
+    Merge branch 'master' of https://github.jpl.nasa.gov/aria-hysds/qquery
+
+commit def37702882cb21e99a0ac622ce1f0bb1c7cb68f
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Wed Jan 18 22:45:27 2017 +0000
+
+    remove hysds req until updated to celery v4
+
+commit 7fe1c7752f57c96922115b8f5ae489547c0dd9f8
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Wed Jan 18 22:39:31 2017 +0000
+
+    adding setup for pulling aria repos for ci hysds.org/general#274
+
+commit b82b696eca8ff9e94c1479af50fd214a74989537
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Wed Jan 18 17:33:06 2017 +0000
+
+    jlinick:updated dockerfile with aria repos and cron wiring hysds-org/general#274
+
+commit a5a5a2a7118b93d3053013a6035250456f29d797
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Tue Jan 17 20:47:55 2017 +0000
+
+    adding in docker wiring for hysds-org/general#274
+
+commit 9623dfd46ce12ed9d06ee9ee86b51b075cb2ad91
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Thu Oct 13 14:36:30 2016 +0000
+
+    skip AOIs marked as inactive in user tags
+
+commit d9643ee0065bd1653ee8d9cd37c7b4b2e4f153ed
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Fri Aug 19 00:41:29 2016 +0000
+
+    set qquery job priority according to priority defined in AOI
+
+commit 2c459b2b36baa6289394532edd9c791c77241e5c
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Thu Aug 18 14:57:39 2016 +0000
+
+    dump error and traceback to for detailed view in mozart
+
+commit de9dc5591988946c3e565d2218648f5aa3b750e7
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Thu Jun 16 20:32:51 2016 +0000
+
+    submit to source-specific sling queue
+
+commit 81efca066ed1a79c24ed0a9e554f2d689cab9904
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Thu Jun 16 09:53:07 2016 -0700
+
+    updated priority such that aoi takes precedence
+
+commit 5dad0ee57439ddc50f810372ad6b54d80323133e
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Tue Jun 14 18:10:59 2016 +0000
+
+    revert back to unix epoch
+
+commit 1d7f4732a2add81a639eca00478bfe81704b75d4
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Tue Jun 14 17:59:56 2016 +0000
+
+    add to oauth_url to correct payload
+
+commit a72b0d512a9842fe140e5f570ed2fa9765d7e9c6
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Tue Jun 14 17:45:51 2016 +0000
+
+    add support for oauth authentication
+    
+    Also add source and AOI ID to sling job name.
+
+commit eadf20d50f9e7d6e57e8f0d5532ef17df5252994
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Tue Jun 14 17:16:06 2016 +0000
+
+    add .gitignore
+
+commit 3f5a2bf340479f80ea0210fb9ef92836b08f1e05
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Tue Jun 14 17:03:43 2016 +0000
+
+    add source and region to qquery job name
+
+commit c635f6fd358defd3f9977300e4b3ad5a546ffcc3
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Mon Jun 13 21:08:04 2016 +0000
+
+    fix template for repo url
+
+commit a93c77cfce1cd448d133e4e42e4236cf0b785a34
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Mon Jun 13 20:51:56 2016 +0000
+
+    fix repo filename
+
+commit 637a1481d3d3ba6e2692b45426de414b3990d3e7
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Mon Jun 13 20:26:13 2016 +0000
+
+    dump json to string
+
+commit 974b209d4ffcd5f8be37f4613c3a394409b73e2b
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Mon Jun 13 11:06:12 2016 -0700
+
+    updated spatial_extent metadata key
+
+commit b844b62a8c53561b893efb5b3492ea2731ebe4ff
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Sun Jun 12 22:06:31 2016 -0700
+
+    updated prod_met
+
+commit 46f58ebf816a6e3425bb9269069df1e6c1591385
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Sun Jun 12 21:14:19 2016 -0700
+
+    prod_met
+
+commit 88576bc63d560fff1671ac1b6a1d17c1893bbb7f
+Author: Justin P Linick <Justin.P.Linick@jpl.nasa.gov>
+Date:   Sun Jun 12 21:11:33 2016 -0700
+
+    prod_met
+
+commit 285c634473ce412fd501dd51089626c94687f7c1
+Author: jlinick <jlinick@jpl.nasa.gov>
+Date:   Sun Jun 12 22:28:16 2016 +0000
+
+    set aria dav repo
+
+commit 14e0752ce359bf9e73b6ca863f018b9c21aff14b
+Merge: 844c7b9 92e37d4
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Thu Apr 28 23:06:06 2016 +0000
+
+    mstarch: merged changes
+
+commit 92e37d44be656c1345bb822297c8a1d5599e4b7e
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Apr 28 17:47:49 2016 +0000
+
+    mstarch: mirroring md5 fixes for new qquery
+
+commit 844c7b96394a83aadd0f2f4ffa85bf053109ba1b
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Thu Apr 28 16:15:08 2016 +0000
+
+    mstarch: fixing zip extension
+
+commit 3b0f7b5302c4e83317924c84473afce6f1578cd6
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Wed Apr 27 21:58:55 2016 +0000
+
+    mstarch: adding sorting to cron
+
+commit 028e97f547d5b53b9a1e75a0d866790640e9376f
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Wed Apr 27 21:48:36 2016 +0000
+
+    mstarch: adding timestamp based on aoi start time
+
+commit f72284faffdc150c9c41504f60dea75219998b50
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Mon Apr 25 20:41:52 2016 +0000
+
+    mstarch: hashing repository
+
+commit d4ab481fd22cc1abff58263cc71fba0349c3ebb4
+Merge: af95c63 46bc652
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Mon Apr 25 17:29:59 2016 +0000
+
+    mstarch: merging ops to new changes
+
+commit af95c63e3ac3ddc646e09575ac7e3dc3bd7f2f1e
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Mon Apr 25 17:15:49 2016 +0000
+
+    mstarch: fixing module importation
+
+commit 46bc652c3226ea1930cf3463c2733d34ac7253d6
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Fri Apr 22 21:01:16 2016 +0000
+
+    mstarch: adding tagging
+
+commit 7f06feda2ccfff63cc9c4df4868d8ffabf729345
+Author: gmanipon <gmanipon@jpl.nasa.gov>
+Date:   Fri Apr 22 18:28:41 2016 +0000
+
+    mstarch: fixing qquery
+
+commit 676916e831cbb685a70cf37d28bbc5a612967a45
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Apr 21 23:12:31 2016 +0000
+
+    mstarch: adding timewindow and de duplication functionality
+
+commit 047abd63c015d94b85a40e15abe9584e40345982
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Apr 21 22:32:25 2016 +0000
+
+    mstarch: adding sadd functionality
+
+commit 9bf08a4532601ed9efc38d0e3c353a3e411bb5f9
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Apr 21 21:28:03 2016 +0000
+
+    mstarch: adjusting default priority
+
+commit d79d2114ec3db9797d36bcd64990ea12048992f8
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Apr 21 20:54:11 2016 +0000
+
+    mstarch: working query framework for scihub
+
+commit 2bddb5205b784b9450c00056f1e32d065dd0a9eb
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 19:56:31 2016 +0000
+
+    mstarch: working query
+
+commit 8f9d53f40291856333a74f964225d12f9b06eb03
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 19:54:55 2016 +0000
+
+    mstarch: removed merge errors
+
+commit cc201beeb315c6ce8de7e33b84728a6e400c69f4
+Merge: 9a55737 f9e9bc6
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 19:53:16 2016 +0000
+
+    Merge branch 'master' of https://github.jpl.nasa.gov//aria-hysds/qquery
+
+commit 9a55737306ccf62189e6e05d131d38df45e51205
+Merge: 9edf5e2 f2bad10
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 19:53:08 2016 +0000
+
+    mstarch: fixed printing
+
+commit f9e9bc6a59a4be5d08366130bff9633a5efe0845
+Author: M Starch <lestarch@googlemail.com>
+Date:   Thu Jan 14 11:51:58 2016 -0800
+
+    mstarch: fixing import
+
+commit 9edf5e28d9e68c0761991f36ab4bb41f2d3a936b
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 19:17:31 2016 +0000
+
+    Better printing
+
+commit f2bad100f26ae9fda4bb1463c0804abd14aff47e
+Author: M Starch <lestarch@googlemail.com>
+Date:   Thu Jan 14 11:16:32 2016 -0800
+
+    mstarch: new query detection
+
+commit d9bd4075539c97c0ce785899e6992ab1e9e3fd38
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 17:48:39 2016 +0000
+
+    mstarch: fixing imports
+
+commit f0f0f3faf1585a44be8d55b7b15a9b4af5870433
+Merge: 8158c44 0584ab7
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 17:42:19 2016 +0000
+
+    Merge branch 'master' of https://github.jpl.nasa.gov//aria-hysds/qquery
+
+commit 8158c44f33d5aae45c18f89e6d1fd940d48dc007
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 17:42:11 2016 +0000
+
+    mstarch: fixed imports
+
+commit 0584ab7178999344853dcbc6f74cab5e88c9fa25
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Thu Jan 14 00:06:43 2016 +0000
+
+    mstarch: no more JSON errors
+
+commit 8dbdb22cf8b3b452e9d57a7fbcf025f659df2981
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Wed Jan 13 20:52:06 2016 +0000
+
+    mstarch: updating query-type to qtype for ease of parameter passing
+
+commit a7053194c0a071a3bb6e4650ab1f2a8f072ccd65
+Author: M Starch <Michael.D.Starch@jpl.nasa.gov>
+Date:   Wed Jan 13 20:43:08 2016 +0000
+
+    mstarch: added worker config example
+
+commit caa788707a339c8f2ccd2b1458597ab062d70b4e
+Author: M Starch (Dev) <mstarch@jpl.nasa.gov>
+Date:   Wed Jan 13 20:08:04 2016 +0000
+
+    mstarch: fixing setup.py
+
+commit 1d91e749d815bcbbb1f464365bd57522bf0e56e5
+Author: M Starch <lestarch@googlemail.com>
+Date:   Mon Jan 4 16:28:55 2016 -0800
+
+    Initial implementation

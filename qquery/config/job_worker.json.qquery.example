@@ -1,0 +1,14 @@
+{
+  "root_work_dir": "/data/work",
+  "webdav_port": 8085,
+  "configs": [
+    {
+      "type": "q-query",
+      "command": {
+        "path": "/home/ops/verdi/ops/qquery/qquery/query.py",
+        "options": [],
+        "arguments": ["-t","$endpoint","-r","$region"],
+        "env": []
+      }
+    }]
+}

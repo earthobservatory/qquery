@@ -1,0 +1,63 @@
+{
+    "label" : "Sling Acquisitions",
+    "allowed_accounts": [ "ops" ],
+    "submission_type":"iteration",
+    "params" : [
+    {
+      "name": "localize_url",
+      "from": "dataset_jpath:_source.urls.0",
+      "lambda": "lambda ds: '%s/%s.dataset.json' % (ds, ds.split('/')[-1])"
+    },
+    {
+      "name": "filename",
+      "from": "dataset_jpath:_source.metadata.filename",
+      "type": "text"
+    },
+    {
+     "name": "download_url",
+      "from": "dataset_jpath:_source.metadata.download_url",
+      "type": "text"
+    },
+    {
+      "name": "queue",
+      "from": "submitter",
+      "type": "enum",
+      "enumerables": 
+        [
+        "factotum-job_worker-scihub_throttled",
+        "factotum-job_worker-apihub_throttled",
+        "factotum-job_worker-asf_throttled",
+        "factotum-job_worker-small",
+        "factotum-job_worker-crawl",
+        "urgent-response-job_worker-large",
+        "urgent-response-job_worker-small"
+        ],
+       "default": "factotum-job_worker-scihub_throttled"
+
+    },
+    {
+      "name": "job_version",
+      "from": "submitter",
+      "type": "jobspec_version",
+      "version_regex": "sling"
+    },
+    {
+      "name": "priority",
+      "from": "submitter",
+      "type": "enum",
+      "enumerables": ["9","8","7","6","5","4","3","2","1","0"],
+      "default": "7"
+    },
+    {
+      "name": "dedup",
+      "from": "submitter",
+      "type": "boolean"
+    },
+    {
+      "name" : "tag",
+      "from": "submitter",
+      "type": "text",
+      "optional": true
+    }
+  ]
+}
