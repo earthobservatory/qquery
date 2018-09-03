@@ -24,6 +24,8 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("qtype", help="query endpoint, e.g. (asf|scihub|unavco)")
+    parser.add_argument("--dns", help="dns-alias to use from .netrc , "
+                                            "e.g. scihub-copernicus1.earthobservatory.sg", required=False)
     parser.add_argument("--tag", help="PGE docker image tag (release, version, " +
                                       "or branch) to propagate",
                         default="master", required=False)
@@ -32,6 +34,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     query_endpoint = args.qtype
+    qquery_dns_alias = args.dns_alias
     qquery_rtag = args.tag
     sling_rtag = qquery_rtag if args.sling_tag is None else args.sling_tag
 
@@ -45,7 +48,7 @@ if __name__ == "__main__":
             #if the region is inactive, skip
             print("AOI {0} marked as inactive. Skipping".format(region["id"]))
             continue
-        
+
         #skip regions without types_types map
         if "query" not in region["metadata"].keys():
             continue
@@ -57,7 +60,7 @@ if __name__ == "__main__":
 
         #determine qquery job submission branch
         job_spec = 'job-qquery:'+qquery_rtag
-      
+
         #determine the repo to query from the types_map in the aoi
         for qtype in region["metadata"]["query"].keys(): #list of endpoints to query
             if qtype != query_endpoint:
@@ -84,6 +87,10 @@ if __name__ == "__main__":
                   "from": "value",
                   "value": "{}".format(qtype),
                 },
+                {"name": "dns_alias",
+                 "from": "value",
+                 "value": "{}".format(qquery_dns_alias),
+                 },
                 { "name": "sling_version",
                   "from": "value",
                   "value": "{}".format(sling_rtag),

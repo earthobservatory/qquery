@@ -71,13 +71,13 @@ class AbstractQuery(object):
         
     @backoff.on_exception(backoff.expo, requests.exceptions.RequestException,
                           max_tries=8, max_value=32)
-    def query_results(self, start_time, end_time, aoi, mapping=None):
+    def query_results(self, start_time, end_time, aoi, dns_alias, mapping=None):
         '''
         Query results from endpoint with jittering.
         '''
-        return self.query(start_time, end_time, aoi, mapping=mapping)
+        return self.query(start_time, end_time, aoi, dns_alias, mapping=mapping)
 
-    def run(self, aoi, input_qtype, rtag=None):
+    def run(self, aoi, input_qtype, dns_alias=None, rtag=None):
         '''
         Run the overall query. Should not be overridden.
         '''
@@ -95,7 +95,7 @@ class AbstractQuery(object):
         for product in products:
             print("querying %s for %s products from %s to %s" % (input_qtype, product, start_time, end_time))
             try:
-            	results = self.query_results(start_time,end_time,aoi,mapping=product)
+            	results = self.query_results(start_time,end_time,aoi, dns_alias, mapping=product)
             	print("returned %s results" % str(len(results)))
                 for title,link in results:
                     print("submitting sling for endpoint: %s, url: %s" % (input_qtype, link))
