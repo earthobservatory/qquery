@@ -464,6 +464,8 @@ def parser():
     parse.add_argument("-r","--region", required=True, help="Region to submit the query for", dest="region")
     parse.add_argument("-t","--query-type", required=True, help="Query type to find correct query handler", dest="qtype")
     parse.add_argument("--tag", help="PGE docker image tag (release, version, or branch) to propagate", required=False)
+    parse.add_argument("--dns_alias", help="Alias DNS to use as endpoint for this query", required=False)
+
     return parse
     
 if __name__ == "__main__":
