@@ -15,6 +15,10 @@
     "destination": "positional"
   },
   {
+    "name": "dns_alias",
+    "destination": "positional"
+  },
+  {
     "name": "sling_version",
     "destination": "positional"
   }
