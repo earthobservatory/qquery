@@ -486,6 +486,9 @@ if __name__ == "__main__":
 
     try:
         print("Finding handler: {0}".format(args.qtype))
+        if "scihub" in args.qtype:
+            args.qtype = "scihub"
+
         handler = AbstractQuery.getQueryHandler(args.qtype)
         print("###"+str(args))
         handler.run(aoi, args.qtype, args.dns_alias, args.tag)
