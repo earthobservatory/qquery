@@ -75,6 +75,7 @@ class AbstractQuery(object):
         '''
         Query results from endpoint with jittering.
         '''
+        print(mapping)
         return self.query(start_time, end_time, aoi, dns_alias, mapping=mapping)
 
     def run(self, aoi, input_qtype, dns_alias=None, rtag=None):
