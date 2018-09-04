@@ -34,6 +34,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     query_endpoint = args.qtype
+    qtype = "scihub" if "scihub" in query_endpoint else query_endpoint
     qquery_dns_alias = args.dns_alias
     qquery_rtag = args.tag
     sling_rtag = qquery_rtag if args.sling_tag is None else args.sling_tag
@@ -62,8 +63,8 @@ if __name__ == "__main__":
         job_spec = 'job-qquery:'+qquery_rtag
 
         #determine the repo to query from the types_map in the aoi
-        for qtype in region["metadata"]["query"].keys(): #list of endpoints to query
-            if qtype != query_endpoint:
+        for qt in region["metadata"]["query"].keys(): #list of endpoints to query
+            if qt != qtype:
                 continue
             p = priority
             if priority == 0 and "priority" in region["metadata"]["query"][qtype].keys():
@@ -74,7 +75,7 @@ if __name__ == "__main__":
             #Setup input arguments here
             rule = {
                 "rule_name": "qquery",
-                "queue": "factotum-job_worker-%s_throttled" % qtype, # job submission queue
+                "queue": "factotum-job_worker-%s_throttled" % query_endpoint, # job submission queue
                 "priority": p,
                 "kwargs":'{}'
             }
@@ -85,7 +86,8 @@ if __name__ == "__main__":
                 },
                 { "name": "endpoint",
                   "from": "value",
-                  "value": "{}".format(qtype),
+                  # preserve the original endpoint name so sling know where to follow
+                  "value": "{}".format(query_endpoint),
                 },
                 {"name": "dns_alias",
                  "from": "value",

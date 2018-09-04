@@ -463,7 +463,7 @@ def parser():
     '''
     parse = argparse.ArgumentParser(description="Downloads products from https://scihub.esa.int/dhus")
     parse.add_argument("-r","--region", required=True, help="Region to submit the query for", dest="region")
-    parse.add_argument("-t","--query-type", required=True, help="Query type to find correct query handler", dest="qtype")
+    parse.add_argument("-t","--query_endpoint", required=True, help="Query endpoint to find correct query handler", dest="query_endpoint")
     parse.add_argument("--tag", help="PGE docker image tag (release, version, or branch) to propagate", required=False)
     parse.add_argument("--dns_alias", help="Alias DNS to use as endpoint for this query", required=False)
 
@@ -475,6 +475,7 @@ if __name__ == "__main__":
     cfg = config()
     # Detect region
     region = None
+
     #skip to the aoi we want
     for aoi in get_aois(cfg):
         if aoi["id"] == args.region:
@@ -486,10 +487,8 @@ if __name__ == "__main__":
 
     try:
         print("Finding handler: {0}".format(args.qtype))
-        if "scihub" in args.qtype:
-            args.qtype = "scihub"
-
-        handler = AbstractQuery.getQueryHandler(args.qtype)
+        qtype = "scihub" if "scihub" in args.query_endpoint else args.query_endpoint
+        handler = AbstractQuery.getQueryHandler(qtype)
         print("###"+str(args))
         handler.run(aoi, args.qtype, args.dns_alias, args.tag)
         #a = AbstractQuery()
