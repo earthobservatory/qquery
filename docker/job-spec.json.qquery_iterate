@@ -1,7 +1,8 @@
 {
   "command":"/home/ops/verdi/ops/qquery/qquery/query.sh",
   "imported_worker_files":{"/home/ops/.netrc":"/home/ops/.netrc"},
-        "factotum-job_worker-apihub_throttled",
+  "required-queues": [
+      "factotum-job_worker-apihub_throttled",
       "factotum-job_worker-asf_throttled",
       "factotum-job_worker-scihub1_throttled",
       "factotum-job_worker-scihub2_throttled",
