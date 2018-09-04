@@ -15,11 +15,11 @@
     "destination": "positional"
   },
   {
-    "name": "dns_alias",
+    "name": "sling_version",
     "destination": "positional"
   },
   {
-    "name": "sling_version",
+    "name": "dns_alias",
     "destination": "positional"
   }
   ]

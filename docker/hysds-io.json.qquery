@@ -15,16 +15,16 @@
      "default": "asf",
      "enumerables": ["asf","scihub","apihub","unavco"]
     },
-     {
-     "name": "dns_alias",
-     "from": "submitter",
-     "type": "text"
-    },
     {
       "name": "sling_version",
       "from": "submitter",
       "type": "jobspec_version",
       "version_regex": "sling"
+    },
+    {
+     "name": "dns_alias",
+     "from": "submitter",
+     "type": "text"
     }
   ]
 }
