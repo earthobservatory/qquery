@@ -75,7 +75,7 @@ class AbstractQuery(object):
         '''
         Query results from endpoint with jittering.
         '''
-        print(mapping)
+        print("###"+str(mapping))
         return self.query(start_time, end_time, aoi, dns_alias, mapping=mapping)
 
     def run(self, aoi, input_qtype, dns_alias=None, rtag=None):
@@ -487,7 +487,7 @@ if __name__ == "__main__":
     try:
         print("Finding handler: {0}".format(args.qtype))
         handler = AbstractQuery.getQueryHandler(args.qtype)
-        print(str(args))
+        print("###"+str(args))
         handler.run(aoi, args.qtype, args.dns_alias, args.tag)
         #a = AbstractQuery()
         #a.run(aoi)
