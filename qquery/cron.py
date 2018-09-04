@@ -23,7 +23,7 @@ if __name__ == "__main__":
     '''
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("qtype", help="query endpoint, e.g. (asf|scihub|unavco)")
+    parser.add_argument("qtype", help="query endpoint, e.g. (asf|scihub#|unavco)")
     parser.add_argument("--dns_alias", help="dns-alias to use from .netrc , "
                                             "e.g. scihub-copernicus1.earthobservatory.sg", required=False)
     parser.add_argument("--tag", help="PGE docker image tag (release, version, " +
