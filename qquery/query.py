@@ -78,7 +78,7 @@ class AbstractQuery(object):
         print("###"+str(mapping))
         return self.query(start_time, end_time, aoi, dns_alias, mapping=mapping)
 
-    def run(self, aoi, input_qtype, dns_alias=None, rtag=None):
+    def run(self, aoi, input_qtype, query_endpoint, dns_alias=None, rtag=None):
         '''
         Run the overall query. Should not be overridden.
         '''
@@ -100,7 +100,7 @@ class AbstractQuery(object):
             	print("returned %s results" % str(len(results)))
                 for title,link in results:
                     print("submitting sling for endpoint: %s, url: %s" % (input_qtype, link))
-                    self.submit_sling_job(aoi, query_params, input_qtype, title, link, rtag)
+                    self.submit_sling_job(aoi, query_params, input_qtype, query_endpoint, title, link, rtag)
             except QueryBadResponseException as qe:
                 print("Error: Failed to query properly. {0}".format(str(qe)),file=sys.stderr)
                 raise qe
@@ -109,7 +109,7 @@ class AbstractQuery(object):
             self.saveStamp(stamp,self.stampKeyname(aoi,input_qtype))
 
 
-    def submit_sling_job(self, aoi, query_params, qtype, title, link, rtag=None):
+    def submit_sling_job(self, aoi, query_params, qtype, query_endpoint, title, link, rtag=None):
         #Query for all products, and return a list of (Title,URL)
         cfg = config() #load settings.json
         priority = query_params["priority"]
@@ -141,7 +141,7 @@ class AbstractQuery(object):
             job_type = "job:spyddder-sling_%s" % qtype
             job_name = "spyddder-sling_%s-%s-%s.%s" % (qtype,aoi['id'],title,self.getFileType())
             oauth_url = None
-        queue = "factotum-job_worker-%s_throttled" % qtype # job submission queue
+        queue = "factotum-job_worker-%s_throttled" % query_endpoint # job submission queue
         
         #set sling job spec release/branch
         if rtag is None:
@@ -486,11 +486,11 @@ if __name__ == "__main__":
         exit(-1)
 
     try:
-        print("Finding handler: {0}".format(args.qtype))
         qtype = "scihub" if "scihub" in args.query_endpoint else args.query_endpoint
+        print("Finding handler: {0}".format(qtype))
         handler = AbstractQuery.getQueryHandler(qtype)
         print("###"+str(args))
-        handler.run(aoi, args.qtype, args.dns_alias, args.tag)
+        handler.run(aoi, qtype, args.query_endpoint, args.dns_alias, args.tag)
         #a = AbstractQuery()
         #a.run(aoi)
     except Exception as e:
