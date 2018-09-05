@@ -23,7 +23,7 @@ fi
 
 if [ -z "${4}" ]
     then
-    ${CODE_DIR}/query.py --region ${1} --query-type ${2} --tag ${3}
+    ${CODE_DIR}/query.py --region ${1} --query-endpoint ${2} --tag ${3}
 else
-    ${CODE_DIR}/query.py --region ${1} --query-type ${2} --tag ${3} --dns_alias ${4}
+    ${CODE_DIR}/query.py --region ${1} --query-endpoint ${2} --tag ${3} --dns_alias ${4}
 fi
