@@ -480,7 +480,7 @@ def parser():
     '''
     parse = argparse.ArgumentParser(description="Downloads products from https://scihub.esa.int/dhus")
     parse.add_argument("-r","--region", required=True, help="Region to submit the query for", dest="region")
-    parse.add_argument("-t","--query_endpoint", required=True, help="Query endpoint to find correct query handler", dest="qtype")
+    parse.add_argument("-t","--query-type", required=True, help="Query endpoint to find correct query handler", dest="qtype")
     parse.add_argument("--tag", help="PGE docker image tag (release, version, or branch) to propagate", required=False)
     parse.add_argument("--dns_list", help="List of DNS to use as endpoint for this query, comma separated")
 
