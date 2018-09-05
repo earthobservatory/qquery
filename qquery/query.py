@@ -107,7 +107,7 @@ class AbstractQuery(object):
                 for title,link in results:
                     # rotate dns in dns_list by replacing dns in link
                     num_queue += 1
-                    queue_grp = num_queue % num_dns
+                    queue_grp = (num_queue % num_dns) + 1
                     new_dns_link = re.sub('(?<=https:\/\/).*?(?=\/)', dns_list[queue_grp-1], link)
 
                     print("submitting sling for endpoint: %s, url: %s" % (input_qtype, new_dns_link))
