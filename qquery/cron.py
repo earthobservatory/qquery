@@ -23,9 +23,8 @@ if __name__ == "__main__":
     '''
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("query_endpoint", help="query endpoint, e.g. (asf|scihub#|unavco)")
-    parser.add_argument("--dns_alias", help="dns-alias to use from .netrc , "
-                                            "e.g. scihub-copernicus1.earthobservatory.sg", required=False)
+    parser.add_argument("qtype", help="query endpoint, e.g. (asf|scihub|unavco)")
+    parser.add_argument("--dns_list", help="dns list for qtype to use from .netrc, comma separated", required=False)
     parser.add_argument("--tag", help="PGE docker image tag (release, version, " +
                                       "or branch) to propagate",
                         default="master", required=False)
@@ -33,9 +32,8 @@ if __name__ == "__main__":
                                       "or branch) to propagate", required=False)
     args = parser.parse_args()
 
-    query_endpoint = args.query_endpoint
-    qtype = "scihub" if "scihub" in query_endpoint else query_endpoint
-    qquery_dns_alias = args.dns_alias
+    qtype = args.qtype
+    dns_list = args.dns_list
     qquery_rtag = args.tag
     sling_rtag = qquery_rtag if args.sling_tag is None else args.sling_tag
 
@@ -75,7 +73,7 @@ if __name__ == "__main__":
             #Setup input arguments here
             rule = {
                 "rule_name": "qquery",
-                "queue": "factotum-job_worker-%s_throttled" % query_endpoint, # job submission queue
+                "queue": "factotum-job_worker-%s_throttled" % qtype, # job submission queue
                 "priority": p,
                 "kwargs":'{}'
             }
@@ -87,11 +85,11 @@ if __name__ == "__main__":
                 { "name": "endpoint",
                   "from": "value",
                   # preserve the original endpoint name so sling know where to follow
-                  "value": "{}".format(query_endpoint),
+                  "value": "{}".format(qtype),
                 },
-                {"name": "dns_alias",
+                {"name": "dns_list",
                  "from": "value",
-                 "value": "{}".format(qquery_dns_alias),
+                 "value": "{}".format(dns_list),
                  },
                 { "name": "sling_version",
                   "from": "value",

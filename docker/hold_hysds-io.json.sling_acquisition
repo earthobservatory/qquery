@@ -24,6 +24,7 @@
       "type": "enum",
       "enumerables": 
         [
+        "factotum-job_worker-scihub_throttled",
         "factotum-job_worker-scihub1_throttled",
         "factotum-job_worker-scihub2_throttled",
         "factotum-job_worker-scihub3_throttled",

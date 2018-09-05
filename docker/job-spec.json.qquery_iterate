@@ -4,6 +4,7 @@
   "required-queues": [
       "factotum-job_worker-apihub_throttled",
       "factotum-job_worker-asf_throttled",
+      "factotum-job_worker-scihub_throttled",
       "factotum-job_worker-scihub1_throttled",
       "factotum-job_worker-scihub2_throttled",
       "factotum-job_worker-scihub3_throttled",

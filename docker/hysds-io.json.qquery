@@ -13,7 +13,7 @@
      "from": "submitter",
      "type": "enum",
      "default": "asf",
-     "enumerables": ["asf","scihub1","scihub2","scihub3","scihub4","scihub5","apihub","unavco"]
+     "enumerables": ["asf","scihub","apihub","unavco"]
     },
     {
       "name": "sling_version",
@@ -22,7 +22,7 @@
       "version_regex": "sling"
     },
     {
-     "name": "dns_alias",
+     "name": "dns_list",
      "from": "submitter",
      "type": "text"
     }
