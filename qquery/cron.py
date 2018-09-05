@@ -32,7 +32,7 @@ if __name__ == "__main__":
                                       "or branch) to propagate", required=False)
     args = parser.parse_args()
 
-    qtype = args.qtype
+    query_endpoint = args.qtype
     dns_list = args.dns_list
     qquery_rtag = args.tag
     sling_rtag = qquery_rtag if args.sling_tag is None else args.sling_tag
@@ -61,8 +61,8 @@ if __name__ == "__main__":
         job_spec = 'job-qquery:'+qquery_rtag
 
         #determine the repo to query from the types_map in the aoi
-        for qt in region["metadata"]["query"].keys(): #list of endpoints to query
-            if qt != qtype:
+        for qtype in region["metadata"]["query"].keys(): #list of endpoints to query
+            if qtype != query_endpoint:
                 continue
             p = priority
             if priority == 0 and "priority" in region["metadata"]["query"][qtype].keys():
@@ -84,7 +84,6 @@ if __name__ == "__main__":
                 },
                 { "name": "endpoint",
                   "from": "value",
-                  # preserve the original endpoint name so sling know where to follow
                   "value": "{}".format(qtype),
                 },
                 {"name": "dns_list",

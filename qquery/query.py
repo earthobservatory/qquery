@@ -102,7 +102,7 @@ class AbstractQuery(object):
         for product in products:
             print("querying %s for %s products from %s to %s" % (input_qtype, product, start_time, end_time))
             try:
-            	results = self.query_results(start_time,end_time,aoi, mapping=product)
+            	results = self.query_results(start_time,end_time,aoi,mapping=product)
             	print("returned %s results" % str(len(results)))
                 for title,link in results:
                     # rotate dns in dns_list by replacing dns in link
@@ -321,7 +321,6 @@ class AbstractQuery(object):
             params["products"] = products
             params["tag"] = tags
             params["dns_list"] = dns_list
-
             return params
 
 
@@ -480,7 +479,7 @@ def parser():
     '''
     parse = argparse.ArgumentParser(description="Downloads products from https://scihub.esa.int/dhus")
     parse.add_argument("-r","--region", required=True, help="Region to submit the query for", dest="region")
-    parse.add_argument("-t","--query-type", required=True, help="Query endpoint to find correct query handler", dest="qtype")
+    parse.add_argument("-t","--query-type", required=True, help="Query type to find correct query handler", dest="qtype")
     parse.add_argument("--tag", help="PGE docker image tag (release, version, or branch) to propagate", required=False)
     parse.add_argument("--dns_list", help="List of DNS to use as endpoint for this query, comma separated")
 
