@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("qtype", help="query endpoint, e.g. (asf|scihub|unavco)")
-    parser.add_argument("--dns_list", help="dns list for qtype to use from .netrc, comma separated", required=False)
+    parser.add_argument("--dns_list", help="dns list for qtype to use from .netrc, comma separated", required=True)
     parser.add_argument("--tag", help="PGE docker image tag (release, version, " +
                                       "or branch) to propagate",
                         default="master", required=False)

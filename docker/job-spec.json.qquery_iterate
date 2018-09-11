@@ -25,6 +25,10 @@
   {
     "name": "sling_version",
     "destination": "positional"
+  },
+  {
+    "name": "dns_list",
+    "destination": "positional"
   }
   ]
 }

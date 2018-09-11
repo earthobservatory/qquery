@@ -6,6 +6,11 @@
     {
       "name": "endpoint",
       "from": "submitter"
+    },
+    {
+     "name": "dns_list",
+     "from": "submitter",
+     "type": "text"
     }
   ]
 }
