@@ -109,7 +109,8 @@ class AbstractQuery(object):
                     queue_grp = (num_queue % num_dns) + 1
                     new_dns_link = re.sub('(?<=https:\/\/).*?(?=\/)', dns_list[queue_grp-1], link)
 
-                    print("submitting sling for endpoint: %s, url: %s, queuegrp: %s" % (input_qtype, new_dns_link, queue_grp))
+                    print("submitting sling for endpoint: %s, queuegrp:%s, url: %s aliased to %s"
+                          % (input_qtype, queue_grp, link, new_dns_link))
                     self.submit_sling_job(aoi, query_params, input_qtype, queue_grp, title, new_dns_link, rtag)
 
             except QueryBadResponseException as qe:
