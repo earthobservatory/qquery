@@ -77,12 +77,12 @@ class AbstractQuery(object):
         '''
         return self.query(start_time, end_time, aoi, mapping=mapping)
 
-    def run(self, aoi, input_qtype, rtag=None):
+    def run(self, aoi, input_qtype, dns_list_str, rtag=None):
         '''
         Run the overall query. Should not be overridden.
         '''
         #determine config parameters
-        query_params = self.parse_params(aoi, input_qtype)
+        query_params = self.parse_params(aoi, input_qtype, dns_list_str)
         if query_params == None:
             print("Failed to parse params properly")
             print("aoi:",aoi)
@@ -91,6 +91,12 @@ class AbstractQuery(object):
         start_time = query_params["starttime"]
         end_time = query_params["endtime"]
         products = query_params["products"]
+        dns_list = query_params["dns_list"]
+
+        #counter for rotating between DNS and queues for sling downloads, so as to overcome per account download limits
+        num_queue = 0
+        num_dns = len(dns_list)
+
         #each products contains a specific mapping for the query
         for product in products:
             print("querying %s for %s products from %s to %s" % (input_qtype, product, start_time, end_time))
@@ -98,8 +104,15 @@ class AbstractQuery(object):
             	results = self.query_results(start_time,end_time,aoi,mapping=product)
             	print("returned %s results" % str(len(results)))
                 for title,link in results:
-                    print("submitting sling for endpoint: %s, url: %s" % (input_qtype, link))
-                    self.submit_sling_job(aoi, query_params, input_qtype, title, link, rtag)
+                    # rotate dns in dns_list by replacing dns in link
+                    num_queue += 1
+                    queue_grp = (num_queue % num_dns) + 1
+                    new_dns_link = re.sub('(?<=https:\/\/).*?(?=\/)', dns_list[queue_grp-1], link)
+
+                    print("submitting sling for endpoint: %s, queuegrp:%s, url: %s aliased to %s"
+                          % (input_qtype, queue_grp, link, new_dns_link))
+                    self.submit_sling_job(aoi, query_params, input_qtype, queue_grp, title, new_dns_link, rtag)
+
             except QueryBadResponseException as qe:
                 print("Error: Failed to query properly. {0}".format(str(qe)),file=sys.stderr)
                 raise qe
@@ -108,7 +121,7 @@ class AbstractQuery(object):
             self.saveStamp(stamp,self.stampKeyname(aoi,input_qtype))
 
 
-    def submit_sling_job(self, aoi, query_params, qtype, title, link, rtag=None):
+    def submit_sling_job(self, aoi, query_params, qtype, queue_grp, title, link, rtag=None):
         #Query for all products, and return a list of (Title,URL)
         cfg = config() #load settings.json
         priority = query_params["priority"]
@@ -140,7 +153,7 @@ class AbstractQuery(object):
             job_type = "job:spyddder-sling_%s" % qtype
             job_name = "spyddder-sling_%s-%s-%s.%s" % (qtype,aoi['id'],title,self.getFileType())
             oauth_url = None
-        queue = "factotum-job_worker-%s_throttled" % qtype # job submission queue
+        queue = "factotum-job_worker-%s_throttled" % (qtype+str(queue_grp)) # job submission queue
         
         #set sling job spec release/branch
         if rtag is None:
@@ -206,7 +219,7 @@ class AbstractQuery(object):
 
 
 
-    def parse_params(self, aoi, input_qtype):
+    def parse_params(self, aoi, input_qtype, dns_list_str):
         '''
         parses the parameters from the aoi, determines proper start/end times and returns a dict object containing params
         '''
@@ -298,12 +311,16 @@ class AbstractQuery(object):
             	for tag in tags:
                     tags.append(aoi["metadata"][qtype]["tag"])
 
+            # parses dns comma seperated string to array
+            dns_list = [x.strip() for x in dns_list_str.split(',')]
+
             #fill parameters
             params["starttime"] = start_time
             params["endtime"] = end_time
             params["priority"] = priority
             params["products"] = products
             params["tag"] = tags
+            params["dns_list"] = dns_list
             return params
 
 
@@ -464,6 +481,8 @@ def parser():
     parse.add_argument("-r","--region", required=True, help="Region to submit the query for", dest="region")
     parse.add_argument("-t","--query-type", required=True, help="Query type to find correct query handler", dest="qtype")
     parse.add_argument("--tag", help="PGE docker image tag (release, version, or branch) to propagate", required=False)
+    parse.add_argument("--dns_list", help="List of DNS to use as endpoint for this query, comma separated")
+
     return parse
     
 if __name__ == "__main__":
@@ -472,6 +491,7 @@ if __name__ == "__main__":
     cfg = config()
     # Detect region
     region = None
+
     #skip to the aoi we want
     for aoi in get_aois(cfg):
         if aoi["id"] == args.region:
@@ -484,7 +504,7 @@ if __name__ == "__main__":
     try:
         print("Finding handler: {0}".format(args.qtype))
         handler = AbstractQuery.getQueryHandler(args.qtype)
-        handler.run(aoi, args.qtype, args.tag)
+        handler.run(aoi, args.qtype, args.dns_list, args.tag)
         #a = AbstractQuery()
         #a.run(aoi)
     except Exception as e:

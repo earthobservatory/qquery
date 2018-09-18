@@ -25,14 +25,20 @@
       "enumerables": 
         [
         "factotum-job_worker-scihub_throttled",
+        "factotum-job_worker-scihub1_throttled",
+        "factotum-job_worker-scihub2_throttled",
+        "factotum-job_worker-scihub3_throttled",
+        "factotum-job_worker-scihub4_throttled",
+        "factotum-job_worker-scihub5_throttled",
         "factotum-job_worker-apihub_throttled",
         "factotum-job_worker-asf_throttled",
+        "factotum-job_worker-asf1_throttled",
         "factotum-job_worker-small",
         "factotum-job_worker-crawl",
         "urgent-response-job_worker-large",
         "urgent-response-job_worker-small"
         ],
-       "default": "factotum-job_worker-scihub_throttled"
+       "default": "factotum-job_worker-scihub1_throttled"
 
     },
     {

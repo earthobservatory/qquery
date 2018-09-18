@@ -1,7 +1,17 @@
 {
   "command":"/home/ops/verdi/ops/qquery/qquery/query.sh",
   "imported_worker_files":{"/home/ops/.netrc":"/home/ops/.netrc"},
-  "required-queues": ["factotum-job_worker-apihub_throttled","factotum-job_worker-asf_throttled","factotum-job_worker-scihub_throttled","factotum-job_worker-unavco_throttled"],
+  "required-queues": [
+      "factotum-job_worker-apihub_throttled",
+      "factotum-job_worker-asf_throttled",
+      "factotum-job_worker-asf1_throttled",
+      "factotum-job_worker-scihub_throttled",
+      "factotum-job_worker-scihub1_throttled",
+      "factotum-job_worker-scihub2_throttled",
+      "factotum-job_worker-scihub3_throttled",
+      "factotum-job_worker-scihub4_throttled",
+      "factotum-job_worker-scihub5_throttled",
+      "factotum-job_worker-unavco_throttled"],
   "soft_time_limit": 3600,
   "time_limit": 3600,
   "disk_usage":"10GB",
@@ -16,6 +26,10 @@
   },
   {
     "name": "sling_version",
+    "destination": "positional"
+  },
+  {
+    "name": "dns_list",
     "destination": "positional"
   }
   ]
