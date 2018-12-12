@@ -8,12 +8,12 @@ ARG id
 ARG gid
 
 #Change UID and GID from build
-USER root
-RUN set -ex && \
-  usermod -u ${id} ops && \
-  groupmod -g ${gid} ops && \
-  chown -R ops:ops /home/ops/ /data && \
-  usermod -g ${gid} ops
+#USER root
+#RUN set -ex && \
+#  usermod -u ${id} ops && \
+#  groupmod -g ${gid} ops && \
+#  chown -R ops:ops /home/ops/ /data && \
+#  usermod -g ${gid} ops
  
 USER ops
 # copy config
