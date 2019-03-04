@@ -217,7 +217,68 @@ class AbstractQuery(object):
             print("Will not submit sling job for {0}, already processed".format(title))
         
 
+    def submit_sling_extract_job(self, aoi, query_params, qtype, queue_grp, title, link, rtag=None):
+        # Query for all products, and return a list of (Title,URL)
+        priority = query_params["priority"]
 
+
+        # build payload items for job submission
+        yr, mo, dy = self.getDataDateFromTitle(title)  # date
+
+        #TODO:rename queue
+        queue = "factotum-job_worker-%s_throttled" % (qtype + str(queue_grp))  # job submission queue
+
+        # set sling job spec release/branch
+        if rtag is None:
+            try:
+                with open('_context.json') as json_data:
+                    context = json.load(json_data)
+                #TODO: rename back to new name without spyddder!
+                job_spec = 'job-spyddder-sling-extract-opds:' + context['job_specification']['job-version']
+            except:
+                print('Failed on loading context.json')
+        else:
+            job_spec = 'job-spyddder-sling-extract-opds:' + rtag
+
+        rtime = datetime.datetime.utcnow()
+        job_name = "%s-%s-%s-%s-%s" % (job_spec, queue, title, rtime.strftime("%d_%b_%Y_%H:%M:%S"), aoi['id'])
+        job_name = job_name.lstrip('job-')
+        filename = title + "." + self.getFileType()
+
+        # Setup input arguments here
+        rule = {
+            "rule_name": job_spec,
+            "queue": queue,
+            "priority": priority,
+            "kwargs": '{}'
+        }
+        params = [
+            {"name": "download_url",
+             "from": "value",
+             "value": link,
+             },
+            {"name": "prod_name",
+             "from": "value",
+             "value": "%s-pds" % title,
+             },
+            {"name": "file",
+             "from": "value",
+             "value": filename,
+             },
+            {"name": "prod_date",
+             "from": "value",
+             "value": "{}".format("%s-%s-%s" % (yr, mo, dy)),
+             }
+        ]
+        # check for dedup, if clear, submit job
+        if not self.deduplicate(filename):
+            submit_mozart_job({}, rule,
+                              hysdsio={"id": "internal-temporary-wiring",
+                                       "params": params,
+                                       "job-specification": job_spec},
+                              job_name=job_name)
+        else:
+            print("Will not submit sling job for {0} to OpenDataset, already processed".format(title))
 
     def parse_params(self, aoi, input_qtype, dns_list_str):
         '''
