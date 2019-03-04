@@ -26,4 +26,4 @@ if [ -z "${4}" ]
     exit 1
 fi
 
-${CODE_DIR}/query.py --region ${1} --query-type ${2} --tag ${3} --dns_list ${4}
+${CODE_DIR}/query-pds.py --region ${1} --query-type ${2} --tag ${3} --dns_list ${4}
