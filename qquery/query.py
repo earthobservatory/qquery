@@ -111,7 +111,7 @@ class AbstractQuery(object):
 
                     print("submitting sling for endpoint: %s, queuegrp:%s, url: %s aliased to %s"
                           % (input_qtype, queue_grp, link, new_dns_link))
-                    self.submit_sling_job(aoi, query_params, input_qtype, queue_grp, title, new_dns_link, rtag)
+                    self.submit_sling_job(aoi, query_params, input_qtype, queue_grp, title, new_dns_link, rtag, pds)
 
             except QueryBadResponseException as qe:
                 print("Error: Failed to query properly. {0}".format(str(qe)),file=sys.stderr)
