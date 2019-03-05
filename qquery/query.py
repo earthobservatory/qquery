@@ -176,7 +176,7 @@ class AbstractQuery(object):
                  }
             ]
         else:
-            queue = "opds-job_worker-%s" % (qtype)  # job submission queue, no queue group for autoscalers
+            queue = "opds-%s-job_worker-small" % (qtype)  # job submission queue, no queue group for autoscalers
             job_header = 'job-sling-extract-opds:'
             dedup_key = 'dedup_redis_key_pds'
             params = [
