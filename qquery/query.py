@@ -77,7 +77,7 @@ class AbstractQuery(object):
         '''
         return self.query(start_time, end_time, aoi, mapping=mapping)
 
-    def run(self, aoi, input_qtype, dns_list_str, rtag=None, pds=False):
+    def run(self, aoi, input_qtype, dns_list_str, rtag=None, pds_queue=None):
         '''
         Run the overall query. Should not be overridden.
         '''
@@ -111,7 +111,7 @@ class AbstractQuery(object):
 
                     print("submitting sling for endpoint: %s, queuegrp:%s, url: %s aliased to %s"
                           % (input_qtype, queue_grp, link, new_dns_link))
-                    self.submit_sling_job(aoi, query_params, input_qtype, queue_grp, title, new_dns_link, rtag, pds)
+                    self.submit_sling_job(aoi, query_params, input_qtype, queue_grp, title, new_dns_link, rtag, pds_queue)
 
             except QueryBadResponseException as qe:
                 print("Error: Failed to query properly. {0}".format(str(qe)),file=sys.stderr)
@@ -121,12 +121,12 @@ class AbstractQuery(object):
             self.saveStamp(stamp,self.stampKeyname(aoi,input_qtype))
 
 
-    def submit_sling_job(self, aoi, query_params, qtype, queue_grp, title, link, rtag=None, pds=False):
+    def submit_sling_job(self, aoi, query_params, qtype, queue_grp, title, link, rtag=None, pds_queue=None):
         #Query for all products, and return a list of (Title,URL)
         yr, mo, dy = self.getDataDateFromTitle(title) #date
         filename = title + "." + self.getFileType()
 
-        if not pds:
+        if not pds_queue:
             # build payload items for job submission
             tags = query_params["tag"]
             md5 = hashlib.md5("{0}.{1}\n".format(title, self.getFileType())).hexdigest()
@@ -176,7 +176,8 @@ class AbstractQuery(object):
                  }
             ]
         else:
-            queue = "opds-%s-job_worker-small" % (qtype)  # job submission queue, no queue group for autoscalers
+            # queue = "opds-%s-job_worker-small" % (qtype)
+            queue = pds_queue  # job submission queue, no queue group for autoscalers
             job_header = 'job-sling-extract-opds:'
             dedup_key = 'dedup_redis_key_pds'
             params = [
@@ -496,7 +497,8 @@ def parser():
     parse.add_argument("-t","--query-type", required=True, help="Query type to find correct query handler", dest="qtype")
     parse.add_argument("--tag", help="PGE docker image tag (release, version, or branch) to propagate", required=False)
     parse.add_argument("--dns_list", help="List of DNS to use as endpoint for this query, comma separated")
-    parse.add_argument('-pds',  help="Send to sling jobs for OpenDataset bucket", action='store_true', default=False)
+    parse.add_argument("--pds_queue",  help="Queue to send Opendataset slings jobs, specify if sling to Opendataset desired",
+                       default=None, required=False)
 
 
     return parse
