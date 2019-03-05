@@ -522,7 +522,7 @@ if __name__ == "__main__":
     try:
         print("Finding handler: {0}".format(args.qtype))
         handler = AbstractQuery.getQueryHandler(args.qtype)
-        handler.run(aoi, args.qtype, args.dns_list, args.tag, args.pds)
+        handler.run(aoi, args.qtype, args.dns_list, args.tag, args.pds_queue)
         #a = AbstractQuery()
         #a.run(aoi)
     except Exception as e:
