@@ -57,12 +57,12 @@ class AbstractQuery(object):
                     continue
                 return clazz
                 
-    def deduplicate(self,title):
+    def deduplicate(self,title, key):
         '''
         Prevents the re-adding of sling downloads
         @params title - name of granule to check if downloading
         '''
-        key = config()['dedup_redis_key']
+        key = config()[key]
         global POOL
         if POOL is None:
             POOL = ConnectionPool.from_url(REDIS_URL)
@@ -77,7 +77,7 @@ class AbstractQuery(object):
         '''
         return self.query(start_time, end_time, aoi, mapping=mapping)
 
-    def run(self, aoi, input_qtype, dns_list_str, rtag=None):
+    def run(self, aoi, input_qtype, dns_list_str, rtag=None, pds=False):
         '''
         Run the overall query. Should not be overridden.
         '''
@@ -121,53 +121,97 @@ class AbstractQuery(object):
             self.saveStamp(stamp,self.stampKeyname(aoi,input_qtype))
 
 
-    def submit_sling_job(self, aoi, query_params, qtype, queue_grp, title, link, rtag=None):
+    def submit_sling_job(self, aoi, query_params, qtype, queue_grp, title, link, rtag=None, pds=False):
         #Query for all products, and return a list of (Title,URL)
-        cfg = config() #load settings.json
-        priority = query_params["priority"]
-        products = query_params["products"]
-        tags = query_params["tag"]
-
-        #build payload items for job submission
         yr, mo, dy = self.getDataDateFromTitle(title) #date
-        md5 = hashlib.md5("{0}.{1}\n".format(title,self.getFileType())).hexdigest()
-        repo_url = "%s/%s/%s/%s/%s/%s.%s" % (cfg["repository-base"],md5[0:8],md5[8:16],md5[16:24],md5[24:32],title,self.getFileType())
-        location = {}
-        location['type'] = 'polygon'
-        location['aoi'] = aoi['id']
-        location['coordinates'] = aoi['location']['coordinates']
-        prod_met = {}
-        prod_met['source'] = qtype
-        prod_met['dataset_type'] = title[0:3]
-        prod_met['spatial_extent'] = location
-        prod_met['tag'] = tags
-        
-        #required params for job submission
-        if hasattr(self, 'getOauthUrl'):
-            #sling via oauth
-            oauth_url = self.getOauthUrl()
-            job_type = "job:spyddder-sling-oauth_%s" % qtype
-            job_name = "spyddder-sling-oauth_%s-%s-%s.%s" % (qtype,aoi['id'],title,self.getFileType())
+        filename = title + "." + self.getFileType()
+
+        if not pds:
+            # build payload items for job submission
+            tags = query_params["tag"]
+            md5 = hashlib.md5("{0}.{1}\n".format(title, self.getFileType())).hexdigest()
+            cfg = config()  # load settings.json
+            repo_url = "%s/%s/%s/%s/%s/%s.%s" % (
+            cfg["repository-base"], md5[0:8], md5[8:16], md5[16:24], md5[24:32], title, self.getFileType())
+            location = {}
+            location['type'] = 'polygon'
+            location['aoi'] = aoi['id']
+            location['coordinates'] = aoi['location']['coordinates']
+            prod_met = {}
+            prod_met['source'] = qtype
+            prod_met['dataset_type'] = title[0:3]
+            prod_met['spatial_extent'] = location
+            prod_met['tag'] = tags
+            queue = "factotum-job_worker-%s_throttled" % (qtype+str(queue_grp)) # job submission queue
+            job_header = 'job-sling:'
+            dedup_key = 'dedup_redis_key'
+            params = [
+                {"name": "download_url",
+                 "from": "value",
+                 "value": link,
+                 },
+                {"name": "repo_url",
+                 "from": "value",
+                 "value": repo_url,
+                 },
+                {"name": "prod_name",
+                 "from": "value",
+                 "value": title,
+                 },
+                {"name": "file_type",
+                 "from": "value",
+                 "value": self.getFileType(),
+                 },
+                {"name": "prod_date",
+                 "from": "value",
+                 "value": "{}".format("%s-%s-%s" % (yr, mo, dy)),
+                 },
+                {"name": "prod_met",
+                 "from": "value",
+                 "value": prod_met,
+                 },
+                {"name": "options",
+                 "from": "value",
+                 "value": "--force_extract"
+                 }
+            ]
         else:
-            #normal sling
-            job_type = "job:spyddder-sling_%s" % qtype
-            job_name = "spyddder-sling_%s-%s-%s.%s" % (qtype,aoi['id'],title,self.getFileType())
-            oauth_url = None
-        queue = "factotum-job_worker-%s_throttled" % (qtype+str(queue_grp)) # job submission queue
+            queue = "opds-job_worker-%s" % (qtype)  # job submission queue, no queue group for autoscalers
+            job_header = 'job-sling-extract-opds:'
+            dedup_key = 'dedup_redis_key_pds'
+            params = [
+                {"name": "download_url",
+                 "from": "value",
+                 "value": link,
+                 },
+                {"name": "prod_name",
+                 "from": "value",
+                 "value": "%s-pds" % title,
+                 },
+                {"name": "file",
+                 "from": "value",
+                 "value": filename,
+                 },
+                {"name": "prod_date",
+                 "from": "value",
+                 "value": "{}".format("%s-%s-%s" % (yr, mo, dy)),
+                 }
+            ]
         
         #set sling job spec release/branch
         if rtag is None:
             try:
                 with open('_context.json') as json_data:
                     context = json.load(json_data)
-                job_spec = 'job-sling:'+context['job_specification']['job-version']
+                job_spec = job_header + context['job_specification']['job-version']
             except:
                 print('Failed on loading context.json')
-        else: job_spec = 'job-sling:'+rtag
+        else: job_spec = job_header + rtag
         
         rtime = datetime.datetime.utcnow()
         job_name = "%s-%s-%s-%s-%s" % (job_spec,queue,title,rtime.strftime("%d_%b_%Y_%H:%M:%S"),aoi['id'])
         job_name = job_name.lstrip('job-')
+        priority = query_params["priority"]
 
         #Setup input arguments here
         rule = {
@@ -176,109 +220,18 @@ class AbstractQuery(object):
             "priority": priority,
             "kwargs":'{}'
         }
-        params = [
-            { "name": "download_url",
-              "from": "value",
-              "value": link,
-            },
-            { "name": "repo_url",
-              "from": "value",
-              "value": repo_url,
-            },
-            { "name": "prod_name",
-              "from": "value",
-              "value": title,
-            },
-            { "name": "file_type",
-              "from": "value",
-              "value": self.getFileType(),
-            },
-            { "name": "prod_date",
-              "from": "value",
-              "value": "{}".format("%s-%s-%s" % (yr, mo, dy)),
-            },
-            { "name": "prod_met",
-              "from": "value",
-              "value": prod_met,
-            },
-            { "name": "options",
-              "from": "value",
-              "value": "--force_extract"
-            }
-        ]
+
         #check for dedup, if clear, submit job
-        if not self.deduplicate(title+"."+self.getFileType()):
+        if not self.deduplicate(filename, dedup_key):
             submit_mozart_job({}, rule,
                 hysdsio={"id": "internal-temporary-wiring",
                         "params": params,
                         "job-specification": job_spec},
                 job_name=job_name)
         else:
-            print("Will not submit sling job for {0}, already processed".format(title))
-        
+            location = "to OpenDataset" if pds else ""
+            print("Will not submit sling job {0} for {1}, already processed".format(location, title))
 
-    def submit_sling_extract_job(self, aoi, query_params, qtype, queue_grp, title, link, rtag=None):
-        # Query for all products, and return a list of (Title,URL)
-        priority = query_params["priority"]
-
-
-        # build payload items for job submission
-        yr, mo, dy = self.getDataDateFromTitle(title)  # date
-
-        #TODO:rename queue
-        queue = "factotum-job_worker-%s_throttled" % (qtype + str(queue_grp))  # job submission queue
-
-        # set sling job spec release/branch
-        if rtag is None:
-            try:
-                with open('_context.json') as json_data:
-                    context = json.load(json_data)
-                #TODO: rename back to new name without spyddder!
-                job_spec = 'job-spyddder-sling-extract-opds:' + context['job_specification']['job-version']
-            except:
-                print('Failed on loading context.json')
-        else:
-            job_spec = 'job-spyddder-sling-extract-opds:' + rtag
-
-        rtime = datetime.datetime.utcnow()
-        job_name = "%s-%s-%s-%s-%s" % (job_spec, queue, title, rtime.strftime("%d_%b_%Y_%H:%M:%S"), aoi['id'])
-        job_name = job_name.lstrip('job-')
-        filename = title + "." + self.getFileType()
-
-        # Setup input arguments here
-        rule = {
-            "rule_name": job_spec,
-            "queue": queue,
-            "priority": priority,
-            "kwargs": '{}'
-        }
-        params = [
-            {"name": "download_url",
-             "from": "value",
-             "value": link,
-             },
-            {"name": "prod_name",
-             "from": "value",
-             "value": "%s-pds" % title,
-             },
-            {"name": "file",
-             "from": "value",
-             "value": filename,
-             },
-            {"name": "prod_date",
-             "from": "value",
-             "value": "{}".format("%s-%s-%s" % (yr, mo, dy)),
-             }
-        ]
-        # check for dedup, if clear, submit job
-        if not self.deduplicate(filename):
-            submit_mozart_job({}, rule,
-                              hysdsio={"id": "internal-temporary-wiring",
-                                       "params": params,
-                                       "job-specification": job_spec},
-                              job_name=job_name)
-        else:
-            print("Will not submit sling job for {0} to OpenDataset, already processed".format(title))
 
     def parse_params(self, aoi, input_qtype, dns_list_str):
         '''
@@ -543,6 +496,8 @@ def parser():
     parse.add_argument("-t","--query-type", required=True, help="Query type to find correct query handler", dest="qtype")
     parse.add_argument("--tag", help="PGE docker image tag (release, version, or branch) to propagate", required=False)
     parse.add_argument("--dns_list", help="List of DNS to use as endpoint for this query, comma separated")
+    parse.add_argument('-pds',  help="Send to sling jobs for OpenDataset bucket", action='store_true', default=False)
+
 
     return parse
     
@@ -565,7 +520,7 @@ if __name__ == "__main__":
     try:
         print("Finding handler: {0}".format(args.qtype))
         handler = AbstractQuery.getQueryHandler(args.qtype)
-        handler.run(aoi, args.qtype, args.dns_list, args.tag)
+        handler.run(aoi, args.qtype, args.dns_list, args.tag, args.pds)
         #a = AbstractQuery()
         #a.run(aoi)
     except Exception as e:

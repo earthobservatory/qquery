@@ -37,30 +37,30 @@ class QueryPDS(qquery.query.AbstractQuery):
         global POOL
         if POOL is None:
             POOL = ConnectionPool.from_url(REDIS_URL)
-        r = StrictRedis(connection_pool=POOL)
+        r = StrictRedis(connectio_pool=POOL)
         return r.sadd(key,title) == 0
 
     def submit_sling_job(self, aoi, query_params, qtype, queue_grp, title, link, rtag=None):
         # Query for all products, and return a list of (Title,URL)
-        cfg = config()  # load settings.json
+        # cfg = config()  # load settings.json
         priority = query_params["priority"]
-        products = query_params["products"]
-        tags = query_params["tag"]
+        # products = query_params["products"]
+        # tags = query_params["tag"]
 
         # build payload items for job submission
         yr, mo, dy = self.getDataDateFromTitle(title)  # date
-        md5 = hashlib.md5("{0}.{1}\n".format(title, self.getFileType())).hexdigest()
-        repo_url = "%s/%s/%s/%s/%s/%s.%s" % (
-        cfg["repository-base"], md5[0:8], md5[8:16], md5[16:24], md5[24:32], title, self.getFileType())
-        location = {}
-        location['type'] = 'polygon'
-        location['aoi'] = aoi['id']
-        location['coordinates'] = aoi['location']['coordinates']
-        prod_met = {}
-        prod_met['source'] = qtype
-        prod_met['dataset_type'] = title[0:3]
-        prod_met['spatial_extent'] = location
-        prod_met['tag'] = tags
+        # md5 = hashlib.md5("{0}.{1}\n".format(title, self.getFileType())).hexdigest()
+        # repo_url = "%s/%s/%s/%s/%s/%s.%s" % (
+        # cfg["repository-base"], md5[0:8], md5[8:16], md5[16:24], md5[24:32], title, self.getFileType())
+        # location = {}
+        # location['type'] = 'polygon'
+        # location['aoi'] = aoi['id']
+        # location['coordinates'] = aoi['location']['coordinates']
+        # prod_met = {}
+        # prod_met['source'] = qtype
+        # prod_met['dataset_type'] = title[0:3]
+        # prod_met['spatial_extent'] = location
+        # prod_met['tag'] = tags
 
         # required params for job submission
         # if hasattr(self, 'getOauthUrl'):
