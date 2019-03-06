@@ -61,27 +61,27 @@ class AbstractQuery(object):
                     continue
                 return clazz
                 
-    def deduplicate(self,title, key):
+    def deduplicate(self, title, dedup_key):
         '''
         Prevents the re-adding of sling downloads
         @params title - name of granule to check if downloading
         '''
-        target_key = config()[key]
+        redis_target_key = config()[dedup_key]
         global POOL
         if POOL is None:
             POOL = ConnectionPool.from_url(REDIS_URL)
         r = StrictRedis(connection_pool=POOL)
 
-        if target_key == DEDUP_KEY:
+        if dedup_key == DEDUP_KEY:
             # If sling to own bucket, checks both typical and pds lists if it is deduped
             # If it is found in PDS bucket / own bucket, skip the sling
             deduped = r.sismember(DEDUP_KEY, title) or r.sismember(DEDUP_KEY_PDS, title)
             if not deduped:
-                r.sadd(target_key, title)
+                r.sadd(redis_target_key, title)
             return deduped
         else:
             # If sling to pds bucket, just check pds lists if it is deduped
-            return r.sadd(target_key, title) == 0
+            return r.sadd(redis_target_key, title) == 0
 
         
     @backoff.on_exception(backoff.expo, requests.exceptions.RequestException,
