@@ -24,6 +24,10 @@ from hysds_commons.job_utils import submit_mozart_job
 from hysds.celery import app
 REDIS_URL = get_redis_endpoint()
 POOL = None
+DEDUP_KEY = 'dedup_redis_key'
+DEDUP_KEY_PDS = 'dedup_redis_key_pds'
+
+
 
 class AbstractQuery(object):
     '''
@@ -62,12 +66,23 @@ class AbstractQuery(object):
         Prevents the re-adding of sling downloads
         @params title - name of granule to check if downloading
         '''
-        key = config()[key]
+        target_key = config()[key]
         global POOL
         if POOL is None:
             POOL = ConnectionPool.from_url(REDIS_URL)
         r = StrictRedis(connection_pool=POOL)
-        return r.sadd(key,title) == 0
+
+        if target_key == DEDUP_KEY:
+            # If sling to own bucket, checks both typical and pds lists if it is deduped
+            # If it is found in PDS bucket / own bucket, skip the sling
+            deduped = r.sismember(DEDUP_KEY, title) or r.sismember(DEDUP_KEY_PDS, title)
+            if not deduped:
+                r.sadd(target_key, title)
+            return deduped
+        else:
+            # If sling to pds bucket, just check pds lists if it is deduped
+            return r.sadd(target_key, title) == 0
+
         
     @backoff.on_exception(backoff.expo, requests.exceptions.RequestException,
                           max_tries=8, max_value=32)
@@ -144,7 +159,7 @@ class AbstractQuery(object):
             prod_met['tag'] = tags
             queue = "factotum-job_worker-%s_throttled" % (qtype+str(queue_grp)) # job submission queue
             job_header = 'job-sling:'
-            dedup_key = 'dedup_redis_key'
+            dedup_key = DEDUP_KEY
             params = [
                 {"name": "download_url",
                  "from": "value",
@@ -179,7 +194,7 @@ class AbstractQuery(object):
             # queue = "opds-%s-job_worker-small" % (qtype)
             queue = pds_queue  # job submission queue, no queue group for autoscalers
             job_header = 'job-sling-extract-opds:'
-            dedup_key = 'dedup_redis_key_pds'
+            dedup_key = DEDUP_KEY_PDS
             params = [
                 {"name": "download_url",
                  "from": "value",
@@ -230,8 +245,9 @@ class AbstractQuery(object):
                         "job-specification": job_spec},
                 job_name=job_name)
         else:
-            location = "to OpenDataset" if pds else ""
-            print("Will not submit sling job {0} for {1}, already processed".format(location, title))
+            location = " to OpenDataset" if pds_queue else "to own bucket"
+            reason = "in OpenDataset" if pds_queue else "in OpenDataset or own bucket"
+            print("Will not submit sling job {0} to {1}, already processed {2}".format(title, location, reason))
 
 
     def parse_params(self, aoi, input_qtype, dns_list_str):
