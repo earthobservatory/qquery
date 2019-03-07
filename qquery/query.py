@@ -114,19 +114,29 @@ class AbstractQuery(object):
 
         #each products contains a specific mapping for the query
         for product in products:
+            # break queries up by month so it does not exceed 10000 requests
+            results = []
             print("querying %s for %s products from %s to %s" % (input_qtype, product, start_time, end_time))
+            monthsplit_daterange = split_daterange_by_month(start_time, end_time)
+
             try:
-            	results = self.query_results(start_time,end_time,aoi,mapping=product)
-            	print("returned %s results" % str(len(results)))
-                for title,link in results:
+
+                for month in monthsplit_daterange:
+                    month_results = self.query_results(month.get("start"),month.get("end"),aoi,mapping=product)
+                    print("returned %s results for the range %s to %s" %
+                          (str(len(month_results)), month.get("start"), month.get("end")))
+                    results.append(month_results)
+
+                for title, link in results:
                     # rotate dns in dns_list by replacing dns in link
                     num_queue += 1
                     queue_grp = (num_queue % num_dns) + 1
-                    new_dns_link = re.sub('(?<=https:\/\/).*?(?=\/)', dns_list[queue_grp-1], link)
+                    new_dns_link = re.sub('(?<=https:\/\/).*?(?=\/)', dns_list[queue_grp - 1], link)
 
                     print("submitting sling for endpoint: %s, queuegrp:%s, url: %s aliased to %s"
                           % (input_qtype, queue_grp, link, new_dns_link))
-                    self.submit_sling_job(aoi, query_params, input_qtype, queue_grp, title, new_dns_link, rtag, pds_queue)
+                    self.submit_sling_job(aoi, query_params, input_qtype, queue_grp, title, new_dns_link, rtag,
+                                          pds_queue)
 
             except QueryBadResponseException as qe:
                 print("Error: Failed to query properly. {0}".format(str(qe)),file=sys.stderr)
@@ -460,6 +470,28 @@ def convert_to_dt(timestring1):
     dt_reg = re.compile("(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})")
     y,m,d,h,mn,sec = [int(i) for i in list(re.findall(dt_reg, timestring1)[0])]
     return datetime.datetime(y,m,d,h,mn,sec)
+
+def split_daterange_by_month(starttime, endtime):
+    '''Takes the start and end datetime string YYYY-MM-DDTHH:mm:SS and split period by month range'''
+    dt_start = convert_to_dt(starttime)
+    dt_end = convert_to_dt(endtime)
+    start_dates = [dt_start]
+    end_dates = []
+    today = dt_start
+    while today <= dt_end:
+        # print(today)
+        tomorrow = today + datetime.timedelta(1)
+        if tomorrow.month != today.month:
+            start_dates.append(tomorrow)
+            end_dates.append(today + datetime.timedelta(2))
+        today = tomorrow
+    end_dates.append(dt_end)
+
+    out_fmt = "%Y-%m-%dT%H:%M:%S"
+    monthsplit_daterange = [{"start":start.strftime(out_fmt), "end":end.strftime(out_fmt)}
+                            for start, end in zip(start_dates, end_dates)]
+
+    return monthsplit_daterange
 
 
 def parse_start_end(json_dict, event_time=None):
