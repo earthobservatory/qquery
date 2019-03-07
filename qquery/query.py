@@ -125,7 +125,7 @@ class AbstractQuery(object):
                     month_results = self.query_results(month.get("start"),month.get("end"),aoi,mapping=product)
                     print("returned %s results for the range %s to %s" %
                           (str(len(month_results)), month.get("start"), month.get("end")))
-                    results.append(month_results)
+                    results = results + month_results
 
                 for title, link in results:
                     # rotate dns in dns_list by replacing dns in link
