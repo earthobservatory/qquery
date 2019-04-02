@@ -24,8 +24,8 @@ from hysds_commons.job_utils import submit_mozart_job
 from hysds.celery import app
 REDIS_URL = get_redis_endpoint()
 POOL = None
-DEDUP_KEY = 'dedup_redis_key'
-DEDUP_KEY_PDS = 'dedup_redis_key_pds'
+DEDUP_KEY = config()['dedup_redis_key']
+DEDUP_KEY_PDS = config()['dedup_redis_key_pds']
 
 
 
@@ -61,27 +61,29 @@ class AbstractQuery(object):
                     continue
                 return clazz
                 
-    def deduplicate(self, title, dedup_key):
+    def deduplicate(self, title, target_dedup_key):
         '''
         Prevents the re-adding of sling downloads
         @params title - name of granule to check if downloading
         '''
-        redis_target_key = config()[dedup_key]
         global POOL
         if POOL is None:
             POOL = ConnectionPool.from_url(REDIS_URL)
         r = StrictRedis(connection_pool=POOL)
 
-        if dedup_key == DEDUP_KEY:
+        if target_dedup_key == DEDUP_KEY:
             # If sling to own bucket, checks both typical and pds lists if it is deduped
             # If it is found in PDS bucket / own bucket, skip the sling
             deduped = r.sismember(DEDUP_KEY, title) or r.sismember(DEDUP_KEY_PDS, title)
+            print("%s is deduped: %s." % (title, deduped))
+
             if not deduped:
-                r.sadd(redis_target_key, title)
+                r.sadd(target_dedup_key, title)
+
             return deduped
         else:
             # If sling to pds bucket, just check pds lists if it is deduped
-            return r.sadd(redis_target_key, title) == 0
+            return r.sadd(target_dedup_key, title) == 0
 
         
     @backoff.on_exception(backoff.expo, requests.exceptions.RequestException,
@@ -117,15 +119,23 @@ class AbstractQuery(object):
             # break queries up by month so it does not exceed 10000 requests
             results = []
             print("querying %s for %s products from %s to %s" % (input_qtype, product, start_time, end_time))
-            monthsplit_daterange = split_daterange_by_month(start_time, end_time)
 
             try:
-
-                for month in monthsplit_daterange:
-                    month_results = self.query_results(month.get("start"),month.get("end"),aoi,mapping=product)
+                if not pds_queue:
+                    # Query the whole start to end if it is not OpenDatasetAOI
+                    results = self.query_results(start_time, end_time, aoi, mapping=product)
                     print("returned %s results for the range %s to %s" %
-                          (str(len(month_results)), month.get("start"), month.get("end")))
-                    results = results + month_results
+                          (str(len(results)), start_time, end_time))
+
+                else:
+                    # Query month-wise if it is OpenDatasetAOI as AOI is too large and returns > 10000 results
+                    monthsplit_daterange = split_daterange_by_month(start_time, end_time)
+
+                    for month in monthsplit_daterange:
+                        month_results = self.query_results(month.get("start"),month.get("end"),aoi,mapping=product)
+                        print("returned %s results for the range %s to %s" %
+                              (str(len(month_results)), month.get("start"), month.get("end")))
+                        results = results + month_results
 
                 for title, link in results:
                     # rotate dns in dns_list by replacing dns in link
