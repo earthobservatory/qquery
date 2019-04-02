@@ -117,15 +117,23 @@ class AbstractQuery(object):
             # break queries up by month so it does not exceed 10000 requests
             results = []
             print("querying %s for %s products from %s to %s" % (input_qtype, product, start_time, end_time))
-            monthsplit_daterange = split_daterange_by_month(start_time, end_time)
 
             try:
-
-                for month in monthsplit_daterange:
-                    month_results = self.query_results(month.get("start"),month.get("end"),aoi,mapping=product)
+                if not pds_queue:
+                    # Query the whole start to end if it is not OpenDatasetAOI
+                    results = self.query_results(start_time, end_time, aoi, mapping=product)
                     print("returned %s results for the range %s to %s" %
-                          (str(len(month_results)), month.get("start"), month.get("end")))
-                    results = results + month_results
+                          (str(len(results)), start_time, end_time))
+
+                else:
+                    # Query month-wise if it is OpenDatasetAOI as AOI is too large and returns > 10000 results
+                    monthsplit_daterange = split_daterange_by_month(start_time, end_time)
+
+                    for month in monthsplit_daterange:
+                        month_results = self.query_results(month.get("start"),month.get("end"),aoi,mapping=product)
+                        print("returned %s results for the range %s to %s" %
+                              (str(len(month_results)), month.get("start"), month.get("end")))
+                        results = results + month_results
 
                 for title, link in results:
                     # rotate dns in dns_list by replacing dns in link
